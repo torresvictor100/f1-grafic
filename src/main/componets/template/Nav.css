@@ -1,5 +1,5 @@
 aside.menu-area{
-    background-color: #f1d104;
+    background-color: #fdfdfd;
     box-shadow: 
     2px 0 10px 0 rgba(0,0,0,0.15),
     2px 0 15px 0 rgba(0,0,0,0.09);
@@ -8,13 +8,13 @@ aside.menu-area{
 .menu a {
     display: block;
     text-decoration: none;
-    color: #46260c;
+    color: #000000;
     font-weight: 300;
     padding: 15px;
 }
 
 .menu a:hover{
-    background: linear-gradient(135deg,#a96a12, 0%, #a96a12 100%);
+    background: linear-gradient(135deg,#f21f0a, 0%, #f21f0a 100%);
 }
 
 @media(max-width: 768px){
