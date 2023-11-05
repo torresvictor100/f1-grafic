@@ -11,8 +11,8 @@ export default props =>
             <Link to="/deskcrud"> {/** Isso é olhando o back */}
                 <i class="fa fa-money-bill-1"></i> Editar Caixas
             </Link>
-            <Link to="/desk"> {/** Isso é olhando o back */}
-                <i class="fa fa-money-bill-1"></i>Caixas
+            <Link to="/construtores"> {/** Isso é olhando o back */}
+                <i class="fa fa-money-bill-1"></i>Campeões
             </Link>
         </nav>
     </aside>
