@@ -13,7 +13,9 @@ const baseUrl = 'http://ergast.com/api/f1/2022/results/1.json'
 const initialState = {
     races: {position: "" },
     season : 0,
-    list: []
+    list: [],
+    resuls: {name : "",
+    nationality: ""}
 }
 
 export default class Construtores extends Component {
@@ -22,6 +24,8 @@ export default class Construtores extends Component {
 
     componentWillMount() {
         axios(baseUrl).then(resp => {
+
+            console.log(resp.data.MRData.RaceTable)
 
             this.setState({ list: resp.data.MRData.RaceTable.Races })
             this.setState({season : resp.data.MRData.RaceTable.season})
@@ -59,35 +63,28 @@ export default class Construtores extends Component {
     renderRows() {
   
         return this.state.list.map(races => {
-
+            {this.setResuls(races.Results)}
             return (
                 <tr>
                     <td>{races.season}</td>
                     <td>{races.raceName}</td>
-                    <td>{this.renderResuls(races.Results)}</td>
-                    <td>{this.renderResuls2(races.Results)}</td>
+                    <td>{this.state.resuls.name}</td>
+                    <td>{this.state.resuls.nationality}</td>
                 </tr>
             )
         })
     }
 
-    renderResuls(resuls) {
+    setResuls(resuls) {
         return resuls.map(resuls => {
             return (
-                resuls.Constructor.name
+                this.state.resuls.name = resuls.Constructor.name,
+                this.state.resuls.nationality = resuls.Constructor.nationality
             )
           
         })
     }
 
-    renderResuls2(resuls) {
-        return resuls.map(resuls => {
-            return (
-                resuls.Constructor.nationality
-            )
-          
-        })
-    }
 
 
 
