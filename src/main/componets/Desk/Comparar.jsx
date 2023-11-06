@@ -39,7 +39,7 @@ const initialState = {
         },
         title: {
           display: true,
-          text: 'Chart.js Bar Chart',
+          text: 'F1 Grafics',
         },
       },
     },
@@ -62,8 +62,8 @@ export default class Comparar extends Component {
     state = { ...initialState }
 
     componentWillMount() {
-        const Piloto1BaseUrl = 'http://ergast.com/api/f1/2023/drivers/max_verstappen/results.json';
-        const Piloto2BaseUrl = 'http://ergast.com/api/f1/2023/drivers/hamilton/results.json';
+        const Piloto1BaseUrl = 'http://ergast.com/api/f1/2008/drivers/massa/results.json';
+        const Piloto2BaseUrl = 'http://ergast.com/api/f1/2008/drivers/hamilton/results.json';
       
       
         Promise.all([axios(Piloto1BaseUrl), axios(Piloto2BaseUrl)])
@@ -131,7 +131,7 @@ export default class Comparar extends Component {
         {
           label: piloto1,
           data: this.state.pontuacao1,
-          backgroundColor: '#031322',
+          backgroundColor: '#ff0000',
         },
         {
           label: piloto2,
