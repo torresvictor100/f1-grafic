@@ -3,5 +3,5 @@ import React from 'react'
 
 export default props =>
     <footer className='footer'>
-        <span>Desenvolvido por VT serviços</span>
+        <span>Desenvolvido por Victor Torres</span>
     </footer>
