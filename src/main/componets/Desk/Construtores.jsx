@@ -1,109 +1,73 @@
-import React, { Component } from "react";
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Main from "../template/Main";
 
 const headerProps = {
-    valor: 'valor',
-    title: 'Lista de campeões',
-    Subtitle: 'Cadastro de caixa: Incluir, Lista, Alterar e Excluir!'
-}
+  valor: "valor",
+  title: "Lista de campeões",
+  Subtitle: "Cadastro de caixa: Incluir, Lista, Alterar e Excluir!",
+};
 
-const baseUrl = 'http://ergast.com/api/f1/2022/results/1.json'
+const baseUrl = "http://ergast.com/api/f1/2022/results/1.json";
 
 const initialState = {
-    races: {position: "" },
-    season : 0,
-    list: [],
-    resuls: {name : "",
-    nationality: ""}
-}
+  season: 0,
+  list: [],
+  results: { name: "", nationality: "" },
+};
 
-export default class Construtores extends Component {
+const Construtores = () => {
+  const [state, setState] = useState({ ...initialState });
 
-    state = { ...initialState }
+  useEffect(() => {
+    axios(baseUrl).then((resp) => {
+      const { season, Races } = resp.data.MRData.RaceTable;
+      setState((prevState) => ({
+        ...prevState,
+        season,
+        list: Races,
+      }));
+    });
+  }, []); // O array vazio como segundo argumento do useEffect faz com que ele só execute uma vez, equivalente ao antigo componentWillMount
 
-    componentWillMount() {
-        axios(baseUrl).then(resp => {
+  const setResults = (results) => {
+    return results.map((result) => ({
+      name: result.Constructor.name,
+      nationality: result.Constructor.nationality,
+    }));
+  };
 
-            console.log(resp.data.MRData.RaceTable)
+  const renderRows = () => {
+    return state.list.map((race, index) => {
+      const results = setResults(race.Results);
+      return (
+        <tr key={index}>
+          <td>{race.season}</td>
+          <td>{race.raceName}</td>
+          <td>{results[0].name}</td>
+          <td>{results[0].nationality}</td>
+        </tr>
+      );
+    });
+  };
 
-            this.setState({ list: resp.data.MRData.RaceTable.Races })
-            this.setState({season : resp.data.MRData.RaceTable.season})
-     
-        })
+  const renderTable = () => {
+    return (
+      <table className="table mt-4">
+        <thead>
+          <tr>
+            <th>ano</th>
+            <th>gp</th>
+            <th>vencedora</th>
+            <th>nacionalidade</th>
+          </tr>
+        </thead>
+        <tbody>{renderRows()}</tbody>
+      </table>
+    );
+  };
 
-   
-    }
+  return <Main {...headerProps}>{renderTable()}</Main>;
+};
 
-
-
-    renderTable() {
-        return (
-            <table className="table mt-4">
-                <thead>
-                    <tr>
-                        <th>ano</th>
-                        <th>gp</th>
-                        <th>vencedora</th>
-                        <th>nacionalidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderRows()}
-                </tbody>
-            </table>
-        )
-    }
-
-    load() {// tem que alterar o set do id não to conseguindo
-        const races = { ...this.state.races }
-        this.setState({races})
-    }
-
-    renderRows() {
-  
-        return this.state.list.map(races => {
-            {this.setResuls(races.Results)}
-            return (
-                <tr>
-                    <td>{races.season}</td>
-                    <td>{races.raceName}</td>
-                    <td>{this.state.resuls.name}</td>
-                    <td>{this.state.resuls.nationality}</td>
-                </tr>
-            )
-        })
-    }
-
-    setResuls(resuls) {
-        return resuls.map(resuls => {
-            return (
-                this.state.resuls.name = resuls.Constructor.name,
-                this.state.resuls.nationality = resuls.Constructor.nationality
-            )
-          
-        })
-    }
-
-
-
-
-
-    render() {
-        return (
-
-            <Main {...headerProps}>
-                {this.renderTable()}
-            </Main>
-        )
-    }
-}   
-
-//{this.renderForm()}
-//{this.renderTable()}
-            //       updateField(event) {
-       // const cashdesk = { ...this.state.race }
-        //cashdesk[event.target.name] = Number(event.target.value)
-        //this.setState({ cashdesk })
-    //}
-
+export default Construtores;
