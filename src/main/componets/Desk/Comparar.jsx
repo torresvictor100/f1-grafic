@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Main from "../template/Main";
-import { Bar } from "react-chartjs-2";
+import Table from "../Table/Table";
 import Grafic from "../Grafic/Graphic";
 import {
   Chart as ChartJS,
@@ -89,34 +89,7 @@ const Comparar = () => {
   };
 
   const renderTable = () => {
-    return (
-      <table className="table mt-4">
-        <thead>
-          <tr>
-            <th>ano</th>
-            <th>gp</th>
-            <th>piloto construtor pontos</th>
-            <th>pntuação</th>
-          </tr>
-        </thead>
-        <tbody>
-          {renderRows(state.Pilot1List, renderResuls1)}
-          <h1>---------------------------</h1>
-          {renderRows(state.Pilot2List, renderResuls2)}
-        </tbody>
-      </table>
-    );
-  };
-
-  const renderRows = (list, renderResuls) => {
-    return list.map((races, index) => (
-      <tr key={index}>
-        <td>{races.season}</td>
-        <td>{races.raceName}</td>
-        <tbody>{renderResuls(races.Results)}</tbody>
-        <td>{state.total}</td>
-      </tr>
-    ));
+    return <Table races={state.Pilot1List} />;
   };
 
   const getRacesName = (list) => {
