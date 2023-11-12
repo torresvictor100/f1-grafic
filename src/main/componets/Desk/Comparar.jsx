@@ -23,39 +23,37 @@ ChartJS.register(
 );
 
 const headerProps = {
-  valor: "valor",
-  title: "Lista de campeões",
-  Subtitle: "Cadastro de caixa: Incluir, Lista, Alterar e Excluir!",
-};
-
-const initialState = {
-  season: 0,
-  Pilot1List: [],
-  Pilot2List: [],
-  results: { name: "", nationality: "" },
-  total: 0,
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "F1 Graphics",
-      },
-    },
-  },
-  labels: [],
-  datasets: [],
-  pontuacao1: [],
-  pontuacao2: [],
-  piloto1: "",
-  piloto2: "",
+  valor: "Pilotos",
+  title: "Comparação de pontos dos pilotos campeões",
+  Subtitle: "Comparação de pontos da f1",
 };
 
 const Comparar = () => {
-  const [state, setState] = useState({ ...initialState });
+  const [state, setState] = useState({
+    season: 0,
+    Pilot1List: [],
+    Pilot2List: [],
+    results: { name: "", nationality: "" },
+    total: 0,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "F1 Graphics",
+        },
+      },
+    },
+    labels: [],
+    datasets: [],
+    pontuacao1: [],
+    pontuacao2: [],
+    piloto1: "",
+    piloto2: "",
+  });
 
   useEffect(() => {
     const Piloto1BaseUrl =
@@ -79,7 +77,7 @@ const Comparar = () => {
       .catch((error) => {
         console.error("Erro ao buscar dados:", error);
       });
-  }, []); // O array vazio como segundo argumento do useEffect faz com que ele só execute uma vez, equivalente ao antigo componentWillMount
+  }, []); 
 
   const setResults = (results) => {
     return results.map((result) => ({
@@ -90,6 +88,11 @@ const Comparar = () => {
 
   const renderTable = () => {
     return <Table races={state.Pilot1List} />;
+  };
+
+
+  const renderGrafic = () => {
+    return <Grafic options={state.options} data={getGraficData()} />;
   };
 
   const getRacesName = (list) => {
@@ -124,39 +127,7 @@ const Comparar = () => {
     };
   };
 
-  const renderResuls1 = (resuls) => {
-    return resuls.map((resul, index) => {
-      state.piloto1 = resul.Driver.familyName;
-      state.total += parseInt(resul.points, 10);
-      state.pontuacao1.push(state.total);
-
-      return (
-        <tr key={index}>
-          <td>{resul.Driver.familyName}</td>
-          <td>{resul.Constructor.name}</td>
-          <td>{resul.points}</td>
-        </tr>
-      );
-    });
-  };
-
-  const renderResuls2 = (resuls) => {
-    return resuls.map((resul, index) => {
-      state.total += parseInt(resul.points, 10);
-      state.piloto2 = resul.Driver.familyName;
-      state.pontuacao2.push(state.total);
-
-      return (
-        <tr key={index}>
-          <td>{resul.Driver.familyName}</td>
-          <td>{resul.Constructor.name}</td>
-          <td>{resul.points}</td>
-        </tr>
-      );
-    });
-  };
-
-  return <Main {...headerProps}>{renderTable()}{<Grafic options={state.options} data={getGraficData()} />}</Main>;
+  return <Main {...headerProps}>{renderTable()}{renderGrafic()}</Main>;
 };
 
 export default Comparar;
