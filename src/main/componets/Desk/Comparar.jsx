@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Main from "../template/Main";
 import Table from "../Table/Table";
-import Grafic from "../Grafic/Graphic";
+import Grafic from "../Grafic/Grafic";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -87,7 +87,7 @@ const Comparar = () => {
   };
 
   const renderTable = () => {
-    return <Table races={state.Pilot1List} />;
+    return <Table pilotoRaces1={state.Pilot1List} pilotoRaces2={state.Pilot2List} />;
   };
 
 
@@ -95,29 +95,49 @@ const Comparar = () => {
     return <Grafic options={state.options} data={getGraficData()} />;
   };
 
-  const getRacesName = (list) => {
-    list.forEach((races) => {
-      if (!state.labels.includes(races.Circuit.circuitName)) {
-        state.labels.push(races.Circuit.circuitName);
+  const getRacesName = (pilotoRaces1, pilotoRaces2 ) => {
+
+    pilotoRaces1.forEach((races) => {
+      if (!state.labels.includes(races.raceName)) {
+        state.labels.push(races.raceName);
+      }
+    });
+
+    pilotoRaces2.forEach((races) => {
+      if (!state.labels.includes(races.raceName)) {
+        state.labels.push(races.raceName);
       }
     });
 
     return state.labels;
   };
 
+  const getRacesPotuacao = (pilotoRaces1, labels) => {
+    let potuacao = []
+    pilotoRaces1.forEach((races) => {
+      if (!labels.includes(labels.raceName)) {
+        potuacao.push(parseInt(races.Results[0].points))
+      }
+      else{
+        potuacao.push(parseInt(0))
+      }
+    });
+   return potuacao
+  }
+  
+
   const getGraficData = () => {
-    let labels = getRacesName(state.Pilot1List);
-    let piloto1 = state.piloto1;
-    let piloto2 = state.piloto2;
+    let labels = getRacesName(state.Pilot1List, state.Pilot2List);
+    getRacesPotuacao(state.Pilot1List,labels )
     let datasets = [
       {
-        label: piloto1,
-        data: state.pontuacao1,
+        label: "label",
+        data: getRacesPotuacao(state.Pilot1List, labels),
         backgroundColor: "#ff0000",
       },
       {
-        label: piloto2,
-        data: state.pontuacao2,
+        label: "label",
+        data: getRacesPotuacao(state.Pilot2List, labels),
         backgroundColor: "#62615d",
       },
     ];
