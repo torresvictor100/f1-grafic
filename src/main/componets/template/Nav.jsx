@@ -8,8 +8,8 @@ export default props =>
             <Link to="/">
                 <i className="fa fa-home"></i> Início
             </Link>
-            <Link to="/comparar"> {/** Isso é olhando o back */}
-                <i class="fa fa-money-bill-1"></i> Comparar
+            <Link to="/pilotsScore"> {/** Isso é olhando o back */}
+                <i class="fa fa-money-bill-1"></i> Pilots Score
             </Link>
             <Link to="/construtores"> {/** Isso é olhando o back */}
                 <i class="fa fa-money-bill-1"></i>Campeões

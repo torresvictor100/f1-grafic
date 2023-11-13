@@ -1,10 +1,10 @@
 import React from "react";
 import TableRow from "./TableRow";
 
-const Table = ({ pilotoRaces1, pilotoRaces2 }) => {
+const Table = ({ pilotRaces1, pilotRaces2 }) => {
 
-    const renderRows = (pilotoRaces) => {
-        return pilotoRaces.map((races, index) => (
+    const renderRows = (pilotRaces) => {
+        return pilotRaces.map((races, index) => (
           <TableRow
             key={index}
             season={races.season}
@@ -24,9 +24,9 @@ const Table = ({ pilotoRaces1, pilotoRaces2 }) => {
         </tr>
       </thead>
       <tbody>
-        {renderRows(pilotoRaces1)}
+        {renderRows(pilotRaces1)}
         <h1>---------------------------</h1>
-        {renderRows(pilotoRaces2)}
+        {renderRows(pilotRaces2)}
       </tbody>
     </table>
   );
