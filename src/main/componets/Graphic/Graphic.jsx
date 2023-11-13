@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import CoresUtil from "./CoresUtil"
 
-const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
+const Graphic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
   const [state, setState] = useState({
     labels: [],
@@ -66,7 +66,7 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
 
 
-  const getGraficData = () => {
+  const getGraphicData = () => {
     let labels = getRacesName(pilotoRaces1, pilotoRaces2);
     let datasets = [
       {
@@ -87,7 +87,7 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
   };
 
 
-  return <Bar options={options} data={getGraficData()} />;
+  return <Bar options={options} data={getGraphicData()} />;
 };
 
-export default Grafic;
+export default Graphic;
