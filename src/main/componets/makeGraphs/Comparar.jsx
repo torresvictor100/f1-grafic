@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Main from "../template/Main";
-import Table from "../Table/Table";
-import Grafic from "../Grafic/Grafic";
+import Table from "../table/Table";
+import Graphic from "../Graphic/Graphic";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -85,13 +85,13 @@ const Comparar = () => {
   };
 
 
-  const renderGrafic = () => {
-    return <Grafic options={state.options} pilotoRaces1={state.Pilot1List} pilotoRaces2={state.Pilot2List} />;
+  const renderGraphic = () => {
+    return <Graphic options={state.options} pilotoRaces1={state.Pilot1List} pilotoRaces2={state.Pilot2List} />;
   };
   
 
 
-  return <Main {...headerProps}>{renderTable()}{renderGrafic()}</Main>;
+  return <Main {...headerProps}>{renderTable()}{renderGraphic()}</Main>;
 };
 
 export default Comparar;
