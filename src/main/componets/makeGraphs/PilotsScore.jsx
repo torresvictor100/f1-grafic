@@ -58,7 +58,7 @@ const PilotsScore = () => {
     const Pilot1SprintBaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/${selectedPilot1}/sprint.json`;
     const Pilot2BaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/${selectedPilot2}/results.json`;
     const Pilot2SprintBaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/${selectedPilot2}/sprint.json`;
-    const PilotListYearUrl = `http://ergast.com/api/f1/${selectedYear}/drivers.json`
+    const PilotListYearUrl = `http://ergast.com/api/f1/${selectedYear}/drivers.json?limit=70`
     
 
     Promise.all([axios(Pilot1BaseUrl), axios(Pilot2BaseUrl), axios(Pilot1SprintBaseUrl), axios(Pilot2SprintBaseUrl), axios(PilotListYearUrl)])
@@ -72,9 +72,7 @@ const PilotsScore = () => {
         const Pilot2SprintRaceList = response4.data.MRData.RaceTable.Races;
 
         const PilotListYear = response5.data.MRData.DriverTable.Drivers;
-
-        console.log(PilotListYear)
-
+        
         setState((prevState) => ({
           ...prevState,
           Pilot1RaceList,
@@ -195,7 +193,7 @@ const PilotsScore = () => {
     ));
   };
 
-  return <Main {...headerProps}>{renderTable()}{renderGraphic()}</Main>;
+  return <Main {...headerProps}>{renderGraphic()}{renderTable()}</Main>;
 };
 
 export default PilotsScore;
