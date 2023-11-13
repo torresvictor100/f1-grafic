@@ -18,9 +18,9 @@ const Table = ({ pilotRaces1, pilotRaces2 }) => {
     <table className="table mt-4">
       <thead>
         <tr>
-          <th>ano</th>
+          <th>season</th>
           <th>gp</th>
-          <th>piloto construtor pontos</th>
+          <th>Pilot Team Score</th>
         </tr>
       </thead>
       <tbody>
