@@ -18,14 +18,15 @@ const Table = ({ pilotRaces1, pilotRaces2 }) => {
     <table className="table mt-4">
       <thead>
         <tr>
-          <th>season</th>
-          <th>gp</th>
-          <th>Pilot Team Score</th>
+          <th>Season</th>
+          <th>GP</th>
+          <th>Pilot | Team | Score</th>
         </tr>
       </thead>
       <tbody>
+        <h1>Pilot</h1>
         {renderRows(pilotRaces1)}
-        <h1>---------------------------</h1>
+        <h1>Pilot</h1>
         {renderRows(pilotRaces2)}
       </tbody>
     </table>
