@@ -11,8 +11,8 @@ export default props =>
             <Link to="/pilotsScore"> {/** Isso é olhando o back */}
                 <i class="fa fa-money-bill-1"></i> Pilots Score
             </Link>
-            <Link to="/construtores"> {/** Isso é olhando o back */}
-                <i class="fa fa-money-bill-1"></i>Campeões
+            <Link to="/constructorScores"> {/** Isso é olhando o back */}
+                <i class="fa fa-money-bill-1"></i>Constructor Scores
             </Link>
         </nav>
     </aside>

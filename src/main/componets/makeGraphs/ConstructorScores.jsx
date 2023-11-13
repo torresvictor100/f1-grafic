@@ -16,7 +16,7 @@ const initialState = {
   results: { name: "", nationality: "" },
 };
 
-const Construtores = () => {
+const ConstructorScores = () => {
   const [state, setState] = useState({ ...initialState });
 
   useEffect(() => {
@@ -28,8 +28,8 @@ const Construtores = () => {
         list: Races,
       }));
     });
-  }, []); // O array vazio como segundo argumento do useEffect faz com que ele só execute uma vez, equivalente ao antigo componentWillMount
-
+  }, []);
+  
   const setResults = (results) => {
     return results.map((result) => ({
       name: result.Constructor.name,
@@ -56,10 +56,10 @@ const Construtores = () => {
       <table className="table mt-4">
         <thead>
           <tr>
-            <th>ano</th>
-            <th>gp</th>
-            <th>vencedora</th>
-            <th>nacionalidade</th>
+            <th>Season</th>
+            <th>GP</th>
+            <th>Win</th>
+            <th>Nationality</th>
           </tr>
         </thead>
         <tbody>{renderRows()}</tbody>
@@ -70,4 +70,4 @@ const Construtores = () => {
   return <Main {...headerProps}>{renderTable()}</Main>;
 };
 
-export default Construtores;
+export default ConstructorScores;

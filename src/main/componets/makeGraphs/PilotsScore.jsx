@@ -23,9 +23,9 @@ ChartJS.register(
 );
 
 const headerProps = {
-  valor: "Pilotos",
-  title: "Comparação de pontos dos pilotos campeões",
-  Subtitle: "Comparação de pontos da f1",
+  valor: "Pilot",
+  title: "Pilots Scores",
+  Subtitle: "Pilots Scores",
 };
 
 const PilotsScore = () => {
