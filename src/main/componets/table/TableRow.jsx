@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from "react";
 import TableCelula from "./TableCelula";
 
-const TableRow = ({index, season, raceName, results }) => {
+const TableRow = ({index, season, raceName, results, pilotRacesSprint }) => {
 
   const [state, setState] = useState({total : 0});
 
-  const renderTableCelula = (results) => {
+  const renderTableCelula = (results ) => {
     return results.map((result, index) => (
       <TableCelula
       result={result}
-        index={index}
+      index={index}
       />
     ));
   };
   
+  const getSprintRacesScore = (pilotRacesSprint) => {
+
+    let corridaSprint: Record<string, string> = {}
+
+    pilotRacesSprint.forEach((races) => {
+      corridaSprint[races.raceName] = races.SprintResults[0].points;
+      });
+      
+    return corridaSprint
+  }
+
+  let pilotRacesSprint2 = getSprintRacesScore(pilotRacesSprint)
+
   return (
     <tr>
       <td>{season}</td>
       <td>{raceName}</td>
       <tbody>{renderTableCelula(results)}</tbody>
+
     </tr>
   );
 };

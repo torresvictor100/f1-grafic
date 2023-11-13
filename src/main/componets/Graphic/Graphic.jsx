@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import ColorsUtil from "./ColorsUtil"
 
-const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
+const Graphic = ({ options, pilotRaces1 , pilotRaces2, pilotSprintRaces1, pilotSprintRaces2 }) => {
 
   const [state, setState] = useState({
     labels: [],
@@ -10,7 +10,7 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
     pilot1: "",
     pilot2: "",
     pilot1Color: "",
-    pilot2Color: "",
+    pilot2Color: ""
   });
 
   
@@ -39,10 +39,23 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
     return races.Results[0].Driver.familyName
   }
 
-  const getRacesScore = (pilotRaces, labels) => {
+  const getSprintRacesScore = (pilotRacesSprint) => {
+
+    let corridaSprint: Record<string, string> = {}
+    pilotRacesSprint.forEach((races) => {
+      corridaSprint[races.raceName] = races.SprintResults[0].points;
+     
+      });
+      
+    return corridaSprint
+  }
+
+
+  const getRacesScore = (pilotRaces, pilotRacesSprint, labels) => {
     let racesScore = []
     let momentScore = 0
     let corrida: Record<string, string> = {}
+    let corridaSprint = getSprintRacesScore(pilotRacesSprint)
 
     pilotRaces.forEach((races) => {
     corrida[races.raceName] = races.Results[0].points;
@@ -51,14 +64,16 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
 
     labels.forEach((gp) => {
 
-      if (corrida[gp] !== undefined ) {
-        momentScore = momentScore + parseInt(corrida[gp])
-        racesScore.push(parseInt(momentScore))
+      if (corrida[gp] !== undefined &&  corridaSprint[gp] !== undefined) {
+        momentScore = momentScore + parseFloat(corrida[gp]) + parseFloat(corridaSprint[gp])
+        racesScore.push(parseFloat(momentScore))
+      }else if(corrida[gp] !== undefined ){
+        momentScore = momentScore + parseFloat(corrida[gp]) 
+        racesScore.push(parseFloat(momentScore))
       } else {
-        racesScore.push(parseInt(momentScore))
+        racesScore.push(parseFloat(momentScore))
       }
 
-      console.log(corrida[gp])
     })
 
    return racesScore
@@ -71,12 +86,12 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
     let datasets = [
       {
         label: state.pilot1,
-        data: getRacesScore(pilotRaces1, labels),
+        data: getRacesScore(pilotRaces1, pilotSprintRaces1, labels),
         backgroundColor: state.pilot1Color,
       },
       {
         label: state.pilot2,
-        data: getRacesScore(pilotRaces2, labels),
+        data: getRacesScore(pilotRaces2, pilotSprintRaces2, labels),
         backgroundColor: state.pilot2Color,
       },
     ];
