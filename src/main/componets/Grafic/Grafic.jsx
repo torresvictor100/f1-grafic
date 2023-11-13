@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import Cores from "./Cores"
 
 const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
@@ -14,28 +15,11 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
     piloto2Cor: "",
   });
 
-  const coresEquipesF1: Record<string, string> = {
-    "red_bull": "#011425",
-    "mercedes": "#00d2be",
-    "alphatauri": "#fcd800",
-    "alfa": "#017747",
-    "alpine": "#006bb8",
-    "aston_martin": "#006560",
-    "ferrari": "#a60203",
-    "haas": "#ed1a3b",
-    "mclaren": "#ff8000",
-    "williams": "#00a1df"
-  };
-
-  const getCorEquipe = (equipe) => {
-    const cor = coresEquipesF1[equipe.toLowerCase()];
-    return cor || "#000"; 
-  }
   
   const getRacesName = (pilotoRaces1, pilotoRaces2 ) => {
     pilotoRaces1.forEach((races) => {
       state.piloto1 = getLabelPiloto(races)
-      state.piloto1Cor = getCorEquipe(races.Results[0].Constructor.constructorId)
+      state.piloto1Cor = Cores.getCorEquipe(races.Results[0].Constructor.constructorId)
       if (!state.labels.includes(races.raceName)) {
         state.labels.push(races.raceName);
       }
@@ -43,7 +27,7 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
     pilotoRaces2.forEach((races) => {
       state.piloto2 =getLabelPiloto(races)
-      state.piloto2Cor = getCorEquipe(races.Results[0].Constructor.constructorId)
+      state.piloto2Cor = Cores.getCorEquipe(races.Results[0].Constructor.constructorId)
       if (!state.labels.includes(races.raceName)) {
         state.labels.push(races.raceName);
       }
@@ -55,7 +39,7 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
   const getLabelPiloto = (races) => {
     return races.Results[0].Driver.familyName
   }
-
+  //esse metodo a baixo ta bugado ta esta pulando as corridas que o cara não correu
   const getRacesPotuacao = (pilotoRaces, labels) => {
     let potuacao = []
     let totalMomentanio = 0
