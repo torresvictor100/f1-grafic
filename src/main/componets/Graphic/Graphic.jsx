@@ -44,22 +44,27 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
   const getRacesScore = (pilotRaces, labels) => {
     let racesScore = []
     let momentScore = 0
+    let corrida: Record<string, string> = {}
 
-    labels.forEach((gp) => {
-      console.log(gp)
-    })
+    
 
     pilotRaces.forEach((races) => {
+    corrida[races.raceName] = races.Results[0].points;
+      
+    });
 
+    labels.forEach((gp) => {
 
-      if (!labels.includes(labels.raceName)) {
-     
-        momentScore = momentScore + parseInt(races.Results[0].points)
+      if (corrida[gp] !== undefined ) {
+        momentScore = momentScore + parseInt(corrida[gp])
         racesScore.push(parseInt(momentScore))
       } else {
         racesScore.push(parseInt(momentScore))
       }
-    });
+
+      console.log(corrida[gp])
+    })
+
    return racesScore
   }
 
