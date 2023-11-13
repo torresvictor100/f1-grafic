@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 
 
-const TableCelula = ({ resul, index, total }) => {
+const TableCelula = ({ resul, index }) => {
 
   const [state, setState] = useState({ pontuacao1: [], dataPiloto: [] });
 

@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import TableCelula from "./TableCelula";
 
-const TableRow = ({index, season, raceName, total, results }) => {
+const TableRow = ({index, season, raceName, results }) => {
 
-  const [state, setState] = useState({ });
+  const [state, setState] = useState({total : 0});
 
-  const renderResuls1 = (resuls) => {
+  const renderTableCelula = (resuls) => {
     return resuls.map((resul, index) => (
       <TableCelula
         resul={resul}
         index={index}
-        total={state.total}
       />
     ));
   };
+  
 
-
-
+  
   return (
     <tr>
       <td>{season}</td>
       <td>{raceName}</td>
-      <tbody>{renderResuls1(results)}</tbody>
-      <td>{total}</td>
+      <tbody>{renderTableCelula(results)}</tbody>
     </tr>
   );
 };

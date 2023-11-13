@@ -59,7 +59,8 @@ const Comparar = () => {
     const Piloto1BaseUrl =
       "http://ergast.com/api/f1/2020/drivers/max_verstappen/results.json";
     const Piloto2BaseUrl =
-      "http://ergast.com/api/f1/2020/drivers/hamilton/results.json";
+      "http://ergast.com/api/f1/2020/drivers/hamilton/results.json";    
+    
 
     Promise.all([axios(Piloto1BaseUrl), axios(Piloto2BaseUrl)])
       .then((responses) => {
@@ -67,6 +68,8 @@ const Comparar = () => {
 
         const Pilot1List = response1.data.MRData.RaceTable.Races;
         const Pilot2List = response2.data.MRData.RaceTable.Races;
+
+        console.log(Pilot1List)
 
         setState((prevState) => ({
           ...prevState,

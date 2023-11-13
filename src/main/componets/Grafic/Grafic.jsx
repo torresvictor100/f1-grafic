@@ -10,10 +10,33 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
     pontuacao2: [],
     piloto1: "",
     piloto2: "",
+    piloto1Cor: "",
+    piloto2Cor: "",
   });
+
+  const coresEquipesF1: Record<string, string> = {
+    "red_bull": "#011425",
+    "mercedes": "#00d2be",
+    "alphatauri": "#fcd800",
+    "alfa": "#017747",
+    "alpine": "#006bb8",
+    "aston_martin": "#006560",
+    "ferrari": "#a60203",
+    "haas": "#ed1a3b",
+    "mclaren": "#ff8000",
+    "williams": "#00a1df"
+  };
+
+  const getCorEquipe = (equipe) => {
+    const cor = coresEquipesF1[equipe.toLowerCase()]; // Convertendo a chave para minúsculas para ser case-insensitive
+  
+    return cor || null; // Retorna a cor se encontrada, caso contrário, retorna null
+  }
+  
   const getRacesName = (pilotoRaces1, pilotoRaces2 ) => {
     pilotoRaces1.forEach((races) => {
       state.piloto1 = getLabelPiloto(races)
+      state.piloto1Cor = getCorEquipe(races.Results[0].Constructor.constructorId)
       if (!state.labels.includes(races.raceName)) {
         state.labels.push(races.raceName);
       }
@@ -21,6 +44,7 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
     pilotoRaces2.forEach((races) => {
       state.piloto2 =getLabelPiloto(races)
+      state.piloto2Cor = getCorEquipe(races.Results[0].Constructor.constructorId)
       if (!state.labels.includes(races.raceName)) {
         state.labels.push(races.raceName);
       }
@@ -33,13 +57,12 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
     return races.Results[0].Driver.familyName
   }
 
-  const getRacesPotuacao = (pilotoRaces1, labels) => {
+  const getRacesPotuacao = (pilotoRaces, labels) => {
     let potuacao = []
     let totalMomentanio = 0
-    pilotoRaces1.forEach((races) => {
+    pilotoRaces.forEach((races) => {
       if (!labels.includes(labels.raceName)) {
         totalMomentanio = totalMomentanio + parseInt(races.Results[0].points)
-        console.log(totalMomentanio)
         potuacao.push(parseInt(totalMomentanio))
       }
       else{
@@ -49,6 +72,8 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
    return potuacao
   }
 
+
+
   const getGraficData = () => {
     let labels = getRacesName(pilotoRaces1, pilotoRaces2);
     getRacesPotuacao(pilotoRaces1,labels)
@@ -56,12 +81,12 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
       {
         label: state.piloto1,
         data: getRacesPotuacao(pilotoRaces1, labels),
-        backgroundColor: "#ff0000",
+        backgroundColor: state.piloto1Cor,
       },
       {
         label: state.piloto2,
         data: getRacesPotuacao(pilotoRaces2, labels),
-        backgroundColor: "#62615d",
+        backgroundColor: state.piloto2Cor,
       },
     ];
     return {

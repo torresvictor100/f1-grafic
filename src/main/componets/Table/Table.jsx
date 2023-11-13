@@ -9,7 +9,6 @@ const Table = ({ pilotoRaces1, pilotoRaces2 }) => {
             key={index}
             season={races.season}
             raceName={races.raceName}
-            total={races.total}
             results={races.Results}
           />
         ));
@@ -22,7 +21,6 @@ const Table = ({ pilotoRaces1, pilotoRaces2 }) => {
           <th>ano</th>
           <th>gp</th>
           <th>piloto construtor pontos</th>
-          <th>pontuação</th>
         </tr>
       </thead>
       <tbody>
