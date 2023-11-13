@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import CoresUtil from "./CoresUtil"
 
-const Graphic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
+const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
 
   const [state, setState] = useState({
     labels: [],
@@ -16,8 +16,8 @@ const Graphic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
   });
 
   
-  const getRacesName = (pilotoRaces1, pilotoRaces2 ) => {
-    pilotoRaces1.forEach((races) => {
+  const getRacesName = (pilotRaces1, pilotRaces2 ) => {
+    pilotRaces1.forEach((races) => {
       state.piloto1 = getLabelPiloto(races)
       state.piloto1Cor = CoresUtil.getCorEquipe(races.Results[0].Constructor.constructorId)
       if (!state.labels.includes(races.raceName)) {
@@ -25,7 +25,7 @@ const Graphic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
       }
     });
 
-    pilotoRaces2.forEach((races) => {
+    pilotRaces2.forEach((races) => {
       state.piloto2 =getLabelPiloto(races)
       state.piloto2Cor = CoresUtil.getCorEquipe(races.Results[0].Constructor.constructorId)
 
@@ -41,11 +41,11 @@ const Graphic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
     return races.Results[0].Driver.familyName
   }
   //esse metodo a baixo ta bugado ta esta pulando as corridas que o cara não correu
-  const getRacesPotuacao = (pilotoRaces, labels) => {
+  const getRacesPotuacao = (pilotRaces, labels) => {
     let potuacao = []
     let totalMomentanio = 0
 
-    pilotoRaces.forEach((races) => {
+    pilotRaces.forEach((races) => {
 
       console.log("labels")
       console.log(state.labels)
@@ -67,16 +67,16 @@ const Graphic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
 
   const getGraphicData = () => {
-    let labels = getRacesName(pilotoRaces1, pilotoRaces2);
+    let labels = getRacesName(pilotRaces1, pilotRaces2);
     let datasets = [
       {
         label: state.piloto1,
-        data: getRacesPotuacao(pilotoRaces1, labels),
+        data: getRacesPotuacao(pilotRaces1, labels),
         backgroundColor: state.piloto1Cor,
       },
       {
         label: state.piloto2,
-        data: getRacesPotuacao(pilotoRaces2, labels),
+        data: getRacesPotuacao(pilotRaces2, labels),
         backgroundColor: state.piloto2Cor,
       },
     ];

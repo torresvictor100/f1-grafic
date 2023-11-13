@@ -28,13 +28,10 @@ const headerProps = {
   Subtitle: "Comparação de pontos da f1",
 };
 
-const Comparar = () => {
+const PilotsScore = () => {
   const [state, setState] = useState({
-    season: 0,
-    Pilot1List: [],
-    Pilot2List: [],
-    results: { name: "", nationality: "" },
-    total: 0,
+    Pilot1RaceList: [],
+    Pilot2RaceList: [],
     options: {
       responsive: true,
       plugins: {
@@ -46,33 +43,27 @@ const Comparar = () => {
           text: "F1 Graphics",
         },
       },
-    },
-    labels: [],
-    datasets: [],
-    pontuacao1: [],
-    pontuacao2: [],
-    piloto1: "",
-    piloto2: "",
+    }
   });
 
   useEffect(() => {
-    const Piloto1BaseUrl =
+    const Pilot1BaseUrl =
       "http://ergast.com/api/f1/2020/drivers/max_verstappen/results.json";
-    const Piloto2BaseUrl =
+    const Pilot2BaseUrl =
       "http://ergast.com/api/f1/2020/drivers/hamilton/results.json";    
     
 
-    Promise.all([axios(Piloto1BaseUrl), axios(Piloto2BaseUrl)])
+    Promise.all([axios(Pilot1BaseUrl), axios(Pilot2BaseUrl)])
       .then((responses) => {
         const [response1, response2] = responses;
 
-        const Pilot1List = response1.data.MRData.RaceTable.Races;
-        const Pilot2List = response2.data.MRData.RaceTable.Races;
+        const Pilot1RaceList = response1.data.MRData.RaceTable.Races;
+        const Pilot2RaceList = response2.data.MRData.RaceTable.Races;
 
         setState((prevState) => ({
           ...prevState,
-          Pilot1List,
-          Pilot2List,
+          Pilot1RaceList,
+          Pilot2RaceList,
         }));
       })
       .catch((error) => {
@@ -81,12 +72,12 @@ const Comparar = () => {
   }, []); 
 
   const renderTable = () => {
-    return <Table pilotoRaces1={state.Pilot1List} pilotoRaces2={state.Pilot2List} />;
+    return <Table pilotRaces1={state.Pilot1RaceList} pilotRaces2={state.Pilot2RaceList} />;
   };
 
 
   const renderGraphic = () => {
-    return <Graphic options={state.options} pilotoRaces1={state.Pilot1List} pilotoRaces2={state.Pilot2List} />;
+    return <Graphic options={state.options} pilotRaces1={state.Pilot1RaceList} pilotRaces2={state.Pilot2RaceList} />;
   };
   
 
@@ -94,4 +85,4 @@ const Comparar = () => {
   return <Main {...headerProps}>{renderTable()}{renderGraphic()}</Main>;
 };
 
-export default Comparar;
+export default PilotsScore;
