@@ -34,6 +34,7 @@ const PilotsScore = () => {
     Pilot2RaceList: [],
     Pilot1SprintRaceList: [],
     Pilot2SprintRaceList: [],
+    selectedYear: new Date().getFullYear().toString(),
     options: {
       responsive: true,
       plugins: {
@@ -49,13 +50,13 @@ const PilotsScore = () => {
   });
 
   useEffect(() => {
-    const Pilot1BaseUrl =
-      "http://ergast.com/api/f1/2021/drivers/max_verstappen/results.json";
-      const Pilot1SprintBaseUrl = 
-      "http://ergast.com/api/f1/2021/drivers/max_verstappen/sprint.json";
-    const Pilot2BaseUrl =
-      "http://ergast.com/api/f1/2021/drivers/hamilton/results.json";
-    const Pilot2SprintBaseUrl = "http://ergast.com/api/f1/2021/drivers/hamilton/sprint.json";  
+    
+    const { selectedYear } = state;
+
+    const Pilot1BaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/massa/results.json`;
+    const Pilot1SprintBaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/massa/sprint.json`;
+    const Pilot2BaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/hamilton/results.json`;
+    const Pilot2SprintBaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/hamilton/sprint.json`;
     
 
     Promise.all([axios(Pilot1BaseUrl), axios(Pilot2BaseUrl), axios(Pilot1SprintBaseUrl), axios(Pilot2SprintBaseUrl)])
@@ -81,18 +82,61 @@ const PilotsScore = () => {
       .catch((error) => {
         console.error("Erro ao buscar dados:", error);
       });
-  }, []); 
+  }, [state.selectedYear]); 
 
   const renderTable = () => {
     return <Table pilotRaces1={state.Pilot1RaceList} pilotRaces2={state.Pilot2RaceList} pilotSprintRaces1 = {state.Pilot1SprintRaceList} pilotSprintRaces2 = {state.Pilot2SprintRaceList} />;
   };
 
+  const handleYearChange = (event) => {
+    const selectedYear = event.target.value;
+    setState((prevState) => ({
+      ...prevState,
+      selectedYear,
+    }));
+  };
+
 
   const renderGraphic = () => {
-    return <Graphic options={state.options} pilotRaces1={state.Pilot1RaceList} pilotRaces2={state.Pilot2RaceList} pilotSprintRaces1 = {state.Pilot1SprintRaceList} pilotSprintRaces2 = {state.Pilot2SprintRaceList} />;
+    const yearOptions = getYearOptions();
+
+    return (
+      <div>
+        <label htmlFor="yearSelect">Escolha um ano:</label>
+        <select
+          id="yearSelect"
+          value={state.selectedYear}
+          onChange={handleYearChange}
+        >
+          {yearOptions}
+        </select>
+        <div>Ano Selecionado: {state.selectedYear}</div>
+        <Graphic
+          options={state.options}
+          pilotRaces1={state.Pilot1RaceList}
+          pilotRaces2={state.Pilot2RaceList}
+          pilotSprintRaces1={state.Pilot1SprintRaceList}
+          pilotSprintRaces2={state.Pilot2SprintRaceList}
+        />
+      </div>
+    );
   };
   
+  const getYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = 1950;
 
+    const yearOptions = [];
+    for (let year = currentYear; year >= startYear; year--) {
+      yearOptions.push(
+        <option key={year} value={year.toString()}>
+          {year}
+        </option>
+      );
+    }
+
+    return yearOptions;
+  };
 
   return <Main {...headerProps}>{renderTable()}{renderGraphic()}</Main>;
 };
