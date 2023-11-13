@@ -69,8 +69,6 @@ const Comparar = () => {
         const Pilot1List = response1.data.MRData.RaceTable.Races;
         const Pilot2List = response2.data.MRData.RaceTable.Races;
 
-        console.log(Pilot1List)
-
         setState((prevState) => ({
           ...prevState,
           Pilot1List,

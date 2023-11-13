@@ -28,9 +28,8 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
   };
 
   const getCorEquipe = (equipe) => {
-    const cor = coresEquipesF1[equipe.toLowerCase()]; // Convertendo a chave para minúsculas para ser case-insensitive
-  
-    return cor || null; // Retorna a cor se encontrada, caso contrário, retorna null
+    const cor = coresEquipesF1[equipe.toLowerCase()];
+    return cor || "#000"; 
   }
   
   const getRacesName = (pilotoRaces1, pilotoRaces2 ) => {
@@ -60,12 +59,14 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
   const getRacesPotuacao = (pilotoRaces, labels) => {
     let potuacao = []
     let totalMomentanio = 0
+
+
     pilotoRaces.forEach((races) => {
       if (!labels.includes(labels.raceName)) {
+     
         totalMomentanio = totalMomentanio + parseInt(races.Results[0].points)
         potuacao.push(parseInt(totalMomentanio))
-      }
-      else{
+      } else {
         potuacao.push(parseInt(totalMomentanio))
       }
     });
@@ -76,7 +77,6 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
   const getGraficData = () => {
     let labels = getRacesName(pilotoRaces1, pilotoRaces2);
-    getRacesPotuacao(pilotoRaces1,labels)
     let datasets = [
       {
         label: state.piloto1,
