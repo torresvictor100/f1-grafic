@@ -5,10 +5,10 @@ const TableRow = ({index, season, raceName, results }) => {
 
   const [state, setState] = useState({total : 0});
 
-  const renderTableCelula = (resuls) => {
-    return resuls.map((resul, index) => (
+  const renderTableCelula = (results) => {
+    return results.map((result, index) => (
       <TableCelula
-        resul={resul}
+      result={result}
         index={index}
       />
     ));

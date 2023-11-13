@@ -1,7 +1,7 @@
 
 export default class ColorsUtil{
 
-      static getColorTeam(equipe) {
+      static colorTeamF1(equipe) {
 
         const colorTeamF1: Record<string, string> = {
             "red_bull": "#011425",

@@ -39,11 +39,18 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2 }) => {
     return races.Results[0].Driver.familyName
   }
   //esse metodo a baixo ta bugado ta esta pulando as corridas que o cara não correu
+  //o erro esta acontecendo pq ta fazendo o for das corridas que o piloto participou e na verdade
+  //tem de ser das lebels
   const getRacesScore = (pilotRaces, labels) => {
     let racesScore = []
     let momentScore = 0
 
+    labels.forEach((gp) => {
+      console.log(gp)
+    })
+
     pilotRaces.forEach((races) => {
+
 
       if (!labels.includes(labels.raceName)) {
      
