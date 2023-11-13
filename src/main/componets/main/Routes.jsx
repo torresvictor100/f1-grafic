@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Construtores from "../Desk/Construtores";
-import Comparar from "../Desk/Comparar";
+import Construtores from "../makeGraphs/Construtores";
+import Comparar from "../makeGraphs/Comparar";
 import Home from "../home/Home";
 
 export default props =>

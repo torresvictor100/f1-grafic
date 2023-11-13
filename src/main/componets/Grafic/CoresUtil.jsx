@@ -1,5 +1,5 @@
 
-export default class Cores{
+export default class CoresUtil{
 
       static getCorEquipe(equipe) {
 

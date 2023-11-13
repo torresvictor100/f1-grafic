@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-import Cores from "./Cores"
+import CoresUtil from "./CoresUtil"
 
 const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
@@ -19,7 +19,7 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
   const getRacesName = (pilotoRaces1, pilotoRaces2 ) => {
     pilotoRaces1.forEach((races) => {
       state.piloto1 = getLabelPiloto(races)
-      state.piloto1Cor = Cores.getCorEquipe(races.Results[0].Constructor.constructorId)
+      state.piloto1Cor = CoresUtil.getCorEquipe(races.Results[0].Constructor.constructorId)
       if (!state.labels.includes(races.raceName)) {
         state.labels.push(races.raceName);
       }
@@ -27,7 +27,8 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
 
     pilotoRaces2.forEach((races) => {
       state.piloto2 =getLabelPiloto(races)
-      state.piloto2Cor = Cores.getCorEquipe(races.Results[0].Constructor.constructorId)
+      state.piloto2Cor = CoresUtil.getCorEquipe(races.Results[0].Constructor.constructorId)
+
       if (!state.labels.includes(races.raceName)) {
         state.labels.push(races.raceName);
       }
@@ -44,8 +45,14 @@ const Grafic = ({ options, pilotoRaces1 , pilotoRaces2 }) => {
     let potuacao = []
     let totalMomentanio = 0
 
-
     pilotoRaces.forEach((races) => {
+
+      console.log("labels")
+      console.log(state.labels)
+      console.log("races")
+      console.log(races.raceName)
+      console.log(state.labels.includes(races.raceName))
+
       if (!labels.includes(labels.raceName)) {
      
         totalMomentanio = totalMomentanio + parseInt(races.Results[0].points)
