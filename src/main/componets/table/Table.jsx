@@ -24,7 +24,8 @@ const Table = ({ pilotRaces1, pilotRaces2, pilotSprintRaces1 , pilotSprintRaces2
         <tr>
           <th>Season</th>
           <th>GP</th>
-          <th>Pilot | Team | Score</th>
+          <th>Sprint Race</th>
+          <th>Pilot | Team |Score</th>
         </tr>
       </thead>
       <tbody>

@@ -25,14 +25,15 @@ const TableRow = ({index, season, raceName, results, pilotRacesSprint }) => {
     return corridaSprint
   }
 
-  let pilotRacesSprint2 = getSprintRacesScore(pilotRacesSprint)
+  let pilotSprintResults = getSprintRacesScore(pilotRacesSprint)
 
   return (
     <tr>
       <td>{season}</td>
       <td>{raceName}</td>
+      <td>{pilotSprintResults[raceName] || "No have"}</td>
       <tbody>{renderTableCelula(results)}</tbody>
-
+      
     </tr>
   );
 };
