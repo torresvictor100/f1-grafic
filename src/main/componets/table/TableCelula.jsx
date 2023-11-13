@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 
 
 
-const TableCelula = ({ resul, index }) => {
+const TableCelula = ({ result, index }) => {
 
-  const [state, setState] = useState({ pontuacao1: [], dataPiloto: [] });
+  const [state, setState] = useState({ score: [], dataPiloto: [] });
 
-  state.piloto = resul.Driver.familyName;
-  state.total += parseInt(resul.points, 10);
-  state.pontuacao1.push(state.total);
+  state.pilotName = result.Driver.familyName;
+  state.totalScore += parseInt(result.points, 10);
+  state.score.push(state.total);
 
   return (
     <tr key={index}>
-      <td>{resul.Driver.familyName}</td>
-      <td>{resul.Constructor.name}</td>
-      <td>{resul.points}</td>
+      <td>{result.Driver.familyName}</td>
+      <td>{result.Constructor.name}</td>
+      <td>{result.points}</td>
     </tr>
   );
 };

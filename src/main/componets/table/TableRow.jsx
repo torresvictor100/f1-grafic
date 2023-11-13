@@ -14,8 +14,6 @@ const TableRow = ({index, season, raceName, results }) => {
     ));
   };
   
-
-  
   return (
     <tr>
       <td>{season}</td>

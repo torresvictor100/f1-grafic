@@ -1,9 +1,9 @@
 
-export default class CoresUtil{
+export default class ColorsUtil{
 
-      static getCorEquipe(equipe) {
+      static getColorTeam(equipe) {
 
-        const coresEquipesF1: Record<string, string> = {
+        const colorTeamF1: Record<string, string> = {
             "red_bull": "#011425",
             "mercedes": "#00d2be",
             "alphatauri": "#fcd800",
@@ -16,8 +16,8 @@ export default class CoresUtil{
             "williams": "#00a1df"
           };
 
-        const cor = coresEquipesF1[equipe.toLowerCase()];
-        return cor || "#000"; 
+        const color = colorTeamF1[equipe.toLowerCase()];
+        return color || "#000"; 
       }
     
 } 
