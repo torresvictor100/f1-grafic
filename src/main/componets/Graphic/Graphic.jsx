@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import ColorsUtil from "./ColorsUtil"
 
-const Graphic = ({ options, pilotRaces1 , pilotRaces2, pilotSprintRaces1, pilotSprintRaces2 }) => {
+const Graphic = ({ options, pilotRaces1 , pilotRaces2, pilotSprintRaces1, pilotSprintRaces2, labels }) => {
 
   const [state, setState] = useState({
-    labels: [],
     datasets: [],
     pilot1: "",
     pilot2: "",
@@ -18,8 +17,8 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2, pilotSprintRaces1, pilotS
     pilotRaces1.forEach((races) => {
       state.pilot1 = getLabelPilot(races)
       state.pilot1Color = ColorsUtil.colorTeamF1(races.Results[0].Constructor.constructorId)
-      if (!state.labels.includes(races.raceName)) {
-        state.labels.push(races.raceName);
+      if (!labels.includes(races.raceName)) {
+        labels.push(races.raceName);
       }
     });
 
@@ -27,12 +26,12 @@ const Graphic = ({ options, pilotRaces1 , pilotRaces2, pilotSprintRaces1, pilotS
       state.pilot2 =getLabelPilot(races)
       state.pilot2Color = ColorsUtil.colorTeamF1(races.Results[0].Constructor.constructorId)
 
-      if (!state.labels.includes(races.raceName)) {
-        state.labels.push(races.raceName);
+      if (!labels.includes(races.raceName)) {
+        labels.push(races.raceName);
       }
     });
 
-    return state.labels;
+    return labels;
   };
 
   const getLabelPilot = (races) => {

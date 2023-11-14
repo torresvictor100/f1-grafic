@@ -3,6 +3,7 @@ import axios from "axios";
 import Main from "../template/Main";
 import Table from "../table/Table";
 import Graphic from "../Graphic/Graphic";
+import SelectionForm from "../selects/SelectionForm";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -35,6 +36,7 @@ const PilotsScore = () => {
     Pilot1SprintRaceList: [],
     Pilot2SprintRaceList: [],
     PilotListYear: [],
+    labels: [],
     selectedYear: new Date().getFullYear().toString(),
     options: {
       responsive: true,
@@ -58,7 +60,7 @@ const PilotsScore = () => {
     const Pilot1SprintBaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/${selectedPilot1}/sprint.json`;
     const Pilot2BaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/${selectedPilot2}/results.json`;
     const Pilot2SprintBaseUrl = `http://ergast.com/api/f1/${selectedYear}/drivers/${selectedPilot2}/sprint.json`;
-    const PilotListYearUrl = `http://ergast.com/api/f1/${selectedYear}/drivers.json?limit=70`
+    const PilotListYearUrl = `http://ergast.com/api/f1/${selectedYear}/drivers.json?limit=150`
     
 
     Promise.all([axios(Pilot1BaseUrl), axios(Pilot2BaseUrl), axios(Pilot1SprintBaseUrl), axios(Pilot2SprintBaseUrl), axios(PilotListYearUrl)])
@@ -92,6 +94,11 @@ const PilotsScore = () => {
   };
 
   const handleYearChange = (event) => {
+    state.labels = []
+    state.Pilot1RaceList = []
+    state.Pilot1SprintRaceList = []
+    state.Pilot2RaceList = []
+    state.Pilot2SprintRaceList = []
     const selectedYear = event.target.value;
     setState((prevState) => ({
       ...prevState,
@@ -121,36 +128,18 @@ const PilotsScore = () => {
     const pilotOptions = getPilotOptions();
 
     return (
+
       <div>
-        <label htmlFor="yearSelect">Escolha um ano:</label>
-        <select
-          id="yearSelect"
-          value={state.selectedYear}
-          onChange={handleYearChange}
-        >
-          {yearOptions}
-        </select>
-        <div>Ano Selecionado: {state.selectedYear}</div>
-
-        <label htmlFor="pilot1Select">Escolha o Piloto 1:</label>
-        <select
-          id="pilot1Select"
-          value={state.selectedPilot1}
-          onChange={handlePilot1Change}
-        >
-          {pilotOptions}
-        </select>
-        <div>Piloto 1 Selecionado: {state.selectedPilot1}</div>
-
-        <label htmlFor="pilot2Select">Escolha o Piloto 2:</label>
-        <select
-          id="pilot2Select"
-          value={state.selectedPilot2}
-          onChange={handlePilot2Change}
-        >
-          {pilotOptions}
-        </select>
-        <div>Piloto 2 Selecionado: {state.selectedPilot2}</div>
+        <SelectionForm
+          selectedYear={state.selectedYear}
+          selectedPilot1={state.selectedPilot1}
+          selectedPilot2={state.selectedPilot2}
+          handleYearChange={handleYearChange}
+          handlePilot1Change={handlePilot1Change}
+          handlePilot2Change={handlePilot2Change}
+          yearOptions={yearOptions}
+          pilotOptions={pilotOptions}
+        />
 
         <Graphic
           options={state.options}
@@ -158,6 +147,7 @@ const PilotsScore = () => {
           pilotRaces2={state.Pilot2RaceList}
           pilotSprintRaces1={state.Pilot1SprintRaceList}
           pilotSprintRaces2={state.Pilot2SprintRaceList}
+          labels={state.labels}
         />
       </div>
     );
